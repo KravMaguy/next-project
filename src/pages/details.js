@@ -8,13 +8,16 @@ const Details = () => {
     return (
         <div>
             {
-                people.map((e, idx) =>
-                    <div >
-                        <Link key={idx} as={`/${e.v}/${e.name}`} href="/[vehicle]/[person]">
-                            <a>navigate to {e.name}'s {e.v}</a>
-                        </Link>
-                    </div>
-                )
+                people.map(function (e, idx) {
+                    return (
+                        <div key={idx}>
+                            <Link as={`/${e.v}/${e.name}`} href="/[vehicle]/[person]">
+                                <a>navigate to {e.name}'s {e.v}</a>
+                            </Link>
+                        </div>
+                    )
+
+                })
             }
         </div>
     );
