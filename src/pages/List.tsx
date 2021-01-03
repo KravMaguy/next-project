@@ -1,33 +1,16 @@
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch';
+import { VehiclePerson } from '../../api/VehiclePerson';
 
-import { useEffect, useState } from 'react'
+export interface ListProps {
+    ownersList: VehiclePerson[] | undefined
+}
 
-const List = ({ ownersList }) => {
-    // const [owners, setOwners] = useState([])
-    // console.log('1')
-    // useEffect(() => {
-    //     console.log('2')
-    //     async function loadData() {
-    //         console.log('3')
-    //         const res = await fetch('http://localhost:4001/vehicles')
-    //         console.log('4')
-    //         console.log('waited on res =', res)
-    //         const ownersList = await res.json()
-    //         console.log('5')
-    //         console.log('waited on owners List =', ownersList)
-    //         setOwners(ownersList)
-    //         console.log('6')
-    //     }
-    //     console.log('7')
-    //     loadData()
-    //     console.log('8')
-    // }, []);
-    // console.log('9')
+const List = ({ ownersList }: ListProps) => {
     return (
         <div>
             {
-                ownersList.map(function (e, idx) {
+                ownersList?.map(function (e, idx) {
                     return (
                         <div key={idx}>
                             <Link as={`/${e.vehicle}/${e.ownerName}`} href="/[vehicle]/[person]">
@@ -44,7 +27,7 @@ const List = ({ ownersList }) => {
 
 List.getInitialProps = async () => {
     const res = await fetch('http://localhost:4001/vehicles')
-    const ownersList = await res.json()
+    const ownersList: VehiclePerson[] | undefined = await res.json()
     // return { ownersList: [{ ownerName: 'bruno' }] }
     return { ownersList: ownersList }
 }
